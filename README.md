@@ -14,24 +14,17 @@ Aplicar técnicas de análisis de datos con SQL para obtener información útil 
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
-
-- SQL Server
-- GitHub
-
----
-
 ## 🧠 Habilidades SQL Demostradas
 
-GROUP BY
-ORDER BY
-Funciones de agregación (SUM, AVG, COUNT)
-CASE WHEN
-Common Table Expressions (CTEs)
-Window Functions
-ROW_NUMBER()
-RANK()
-LAG()
+- GROUP BY
+- ORDER BY
+- Funciones de agregación (`SUM`, `AVG`, `COUNT`)
+- CASE WHEN
+- Common Table Expressions (CTEs)
+- Window Functions
+- ROW_NUMBER()
+- RANK()
+- LAG()
 
 ---
 
