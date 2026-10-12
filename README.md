@@ -2,19 +2,15 @@
 
 ## 📌 Descripción del Proyecto
 
-Este proyecto presenta un análisis de datos utilizando el conjunto de datos Superstore, con el objetivo de obtener información valiosa sobre ventas, rentabilidad, clientes y productos mediante consultas SQL.
+Este proyecto analiza datos de ventas de una tienda minorista utilizando SQL Server.
 
-A través de diferentes preguntas de negocio, se exploran patrones de comportamiento que pueden ayudar a la toma de decisiones estratégicas y a la mejora del rendimiento comercial.
+A través de una serie de preguntas de negocio, se exploran patrones relacionados con ventas, rentabilidad, clientes y productos utilizando consultas SQL y funciones analíticas avanzadas.
 
 ---
 
 ## 🎯 Objetivos
 
-- Analizar el desempeño de ventas por región.
-- Identificar los productos más rentables.
-- Evaluar el comportamiento de los clientes.
-- Analizar el impacto de los descuentos sobre la rentabilidad.
-- Detectar tendencias de crecimiento en las ventas.
+Aplicar técnicas de análisis de datos con SQL para obtener información útil sobre el desempeño comercial de una empresa y practicar consultas utilizadas habitualmente en entornos de Business Intelligence y Data Analytics.
 
 ---
 
@@ -22,23 +18,20 @@ A través de diferentes preguntas de negocio, se exploran patrones de comportami
 
 - SQL Server
 - GitHub
-- Microsoft Excel
 
 ---
 
 ## 🧠 Habilidades SQL Demostradas
 
-- Aggregations (`SUM`, `AVG`, `COUNT`)
-- `GROUP BY`
-- `ORDER BY`
-- `CASE WHEN`
-- Common Table Expressions (CTEs)
-- Window Functions
-- `ROW_NUMBER()`
-- `RANK()`
-- `LAG()`
-- Análisis de KPIs
-- Business Analytics
+GROUP BY
+ORDER BY
+Funciones de agregación (SUM, AVG, COUNT)
+CASE WHEN
+Common Table Expressions (CTEs)
+Window Functions
+ROW_NUMBER()
+RANK()
+LAG()
 
 ---
 
