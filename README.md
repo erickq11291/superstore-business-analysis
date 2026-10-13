@@ -47,10 +47,10 @@ ORDER BY Ventas_Totales DESC;
 
 Determinar qué clientes tienen el mayor impacto en las ventas totales.
 ````sql
-SELECT TOP 5 Customer_Name, SUM(Sales) AS Monto_Total_Gastado
+SELECT TOP 5 Customer_Name, SUM(Sales) AS Monto_Gastado
 FROM Orders
 GROUP BY Customer_Name
-ORDER BY Monto_Total_Gastado DESC;
+ORDER BY Monto_Gastado DESC;
 ````
 <img width="222" height="115" alt="ask2" src="https://github.com/user-attachments/assets/c99bb3e0-c6cd-48cf-80ca-f29866bd8020" />
 
@@ -59,11 +59,10 @@ ORDER BY Monto_Total_Gastado DESC;
 
 Analizar la distribución geográfica de los ingresos e identificar las regiones más importantes para el negocio.
 ````sql
-SELECT Category, SUM(Profit) AS Ganancia_Total
+SELECT Region, SUM(Sales) AS Total_Ventas, ROUND(SUM(Sales)*100/SUM(SUM(Sales)) OVER(),2) AS Porcentaje_Ventas
 FROM Orders
-GROUP BY Category
-HAVING SUM(Profit)>0
-ORDER BY Ganancia_Total;
+GROUP BY Region
+ORDER BY Porcentaje_Ventas;
 ````
 <img width="270" height="95" alt="ask3" src="https://github.com/user-attachments/assets/c4194245-86bd-49d4-8ae2-723df2a483fc" />
 
@@ -73,10 +72,18 @@ ORDER BY Ganancia_Total;
 
 Evaluar el crecimiento o disminución de las ventas mediante una comparación año contra año.
 ````sql
-SELECT Region, SUM(Sales) AS Ventas_Totales, CAST(100 * SUM(SALES) / SUM(SUM(Sales)) OVER () AS DECIMAL(5,2)) AS Porcentaje_Ventas
-FROM Orders
-GROUP BY Region
-ORDER BY Porcentaje_Ventas;
+WITH Ventas_Anuales AS(
+	SELECT YEAR(Order_Date) AS Año, SUM(Sales) AS Ventas_Totales
+	FROM Orders
+	GROUP BY YEAR(Order_Date)
+)
+SELECT Año, Ventas_Totales,
+		LAG(Ventas_Totales) OVER(ORDER BY Año) AS Año_Anterior,
+		Ventas_Totales - LAG(Ventas_Totales) OVER(ORDER BY Año) AS Diferencia_Ventas,
+		ROUND(
+			(Ventas_Totales-LAG(Ventas_Totales) OVER(ORDER BY Año))/LAG(Ventas_Totales) OVER(ORDER BY Año)*100,2
+		) AS Porcentaje_Crecimiento
+FROM Ventas_Anuales;
 ````
 <img width="471" height="96" alt="ask4" src="https://github.com/user-attachments/assets/4d2a409d-755e-4feb-9154-c1d7c8d1f2a5" />
 
@@ -85,22 +92,10 @@ ORDER BY Porcentaje_Ventas;
 
 Identificar qué categorías aportan la mayor rentabilidad al negocio.
 ````sql
-WITH ProductSales AS(
-	SELECT YEAR(Order_Date) AS Año, Product_Name, SUM(Sales) AS Ventas_Totales
-	FROM Orders
-	GROUP BY YEAR(Order_Date), Product_Name
-	),
-RankedProducts AS(
-	SELECT Año, Product_Name, Ventas_Totales, ROW_NUMBER() OVER(
-		PARTITION BY Año
-		ORDER BY Ventas_Totales DESC
-		) AS RANKING
-	FROM ProductSales
-	)
-SELECT Año, Product_Name, Ventas_Totales
-FROM RankedProducts
-WHERE Ranking = 1
-ORDER BY Año;
+SELECT Category, SUM(Profit) AS Beneficio_Total
+FROM Orders
+GROUP BY Category
+ORDER BY Beneficio_Total;
 ````
 <img width="211" height="76" alt="ask5" src="https://github.com/user-attachments/assets/6c6603a9-9358-4b1a-825d-b4be1c98d9a6" />
 
@@ -109,18 +104,10 @@ ORDER BY Año;
 
 Determinar qué productos son más eficientes generando ganancias en relación con sus ventas.
 ````sql
-WITH Ventas_Anuales AS (
-    SELECT YEAR(Order_Date) AS Año, SUM(Sales) AS Ventas_Totales
-    FROM Orders
-    GROUP BY YEAR(Order_Date)
-)
-SELECT Año, Ventas_Totales,
-    LAG(Ventas_Totales) OVER (ORDER BY Año) AS Ventas_Año_Anterior,
-    Ventas_Totales - LAG(Ventas_Totales) OVER (ORDER BY Año) AS Diferencia_Ventas,
-    ROUND(
-        ((Ventas_Totales - LAG(Ventas_Totales) OVER (ORDER BY Año))/LAG(Ventas_Totales) OVER (ORDER BY Año)) * 100,2) AS Porcentaje_Crecimiento_Ventas
-FROM Ventas_Anuales
-ORDER BY Año;
+SELECT  TOP 10 Product_Name, SUM(Sales) AS Ventas_Totales, SUM(Profit) AS Ganancia, ROUND(SUM(Profit)*100/SUM(Sales),2) AS Ganancia_Total
+FROM Orders
+GROUP BY Product_Name
+ORDER BY Ganancia_Total DESC;
 ````
 <img width="569" height="209" alt="ask6" src="https://github.com/user-attachments/assets/5d896514-ea0e-4ff3-85cc-9f8969390ecd" />
 
@@ -129,11 +116,22 @@ ORDER BY Año;
 
 Analizar el impacto de los diferentes niveles de descuento sobre los beneficios obtenidos.
 ````sql
-SELECT TOP 10 Product_Name, SUM(Profit) AS Ganancia, SUM(Sales) AS Ventas_Totales, ROUND(SUM(Profit)*100/SUM(Sales), 2) AS Ganancia_Total
+SELECT CASE
+			WHEN Discount = 0 THEN '0%'
+			WHEN Discount <= 0.1 THEN '0% - 10%'
+			WHEN Discount <= 0.2 THEN '11% - 20%'
+			WHEN Discount <= 0.3 THEN '21% - 30%'
+			ELSE 'Más del 30%'
+		END AS Porcentaje_Descuento, COUNT(*) AS Cantidad_Pedidos, ROUND(AVG(Profit),2) AS Promedio_Ganancia, ROUND(SUM(Profit),2) AS Total_Ganancia
 FROM Orders
-GROUP BY Product_Name
-HAVING SUM(Sales)>0
-ORDER BY Ganancia_Total DESC;
+GROUP BY CASE
+			WHEN Discount = 0 THEN '0%'
+			WHEN Discount <= 0.1 THEN '0% - 10%'
+			WHEN Discount <= 0.2 THEN '11% - 20%'
+			WHEN Discount <= 0.3 THEN '21% - 30%'
+			ELSE 'Más del 30%'
+		END
+ORDER BY Porcentaje_Descuento;
 ````
 <img width="433" height="115" alt="ask7" src="https://github.com/user-attachments/assets/fbb45ab2-bb8f-4ce4-9d58-1bf3a16c9e3e" />
 
@@ -142,10 +140,10 @@ ORDER BY Ganancia_Total DESC;
 
 Identificar los clientes más frecuentes y comprender mejor el comportamiento de compra.
 ````sql
-SELECT TOP 10 Customer_Name, COUNT(DISTINCT Order_ID) AS Total_Pedidos
+SELECT TOP 10 Customer_Name, COUNT(DISTINCT Order_ID) AS Cantidad_Pedidos
 FROM Orders
 GROUP BY Customer_Name
-ORDER BY Total_Pedidos DESC;
+ORDER BY Cantidad_Pedidos DESC;
 ````
 <img width="242" height="209" alt="ask8" src="https://github.com/user-attachments/assets/bf8a03f9-53a1-4995-b60f-1565ac646097" />
 
@@ -154,22 +152,20 @@ ORDER BY Total_Pedidos DESC;
 
 Detectar qué productos lideraron las ventas en cada periodo anual.
 ````sql
-SELECT CASE
-			WHEN Discount = 0 THEN '0%'
-			WHEN Discount <= 0.10 THEN '1% - 10%'
-			WHEN Discount <= 0.20 THEN '11% - 20%'
-			WHEN Discount <= 0.30 THEN '21% - 30%'
-			ELSE 'Más del 30%'
-		END AS Porcentaje_Descuento, COUNT(*) AS Total_Pedidos, ROUND(AVG(Profit),2) AS Promedio_Ganancia, ROUND(SUM(Profit),2) AS Total_Ganancia
-FROM Orders
-GROUP BY CASE
-			WHEN Discount = 0 THEN '0%'
-			WHEN Discount <= 0.10 THEN '1% - 10%'
-			WHEN Discount <= 0.20 THEN '11% - 20%'
-			WHEN Discount <= 0.30 THEN '21% - 30%'
-			ELSE 'Más del 30%'
-		END
-ORDER BY Porcentaje_Descuento;
+WITH Ventas_Anuales AS(
+	SELECT YEAR(Order_Date) AS Año, Product_Name, SUM(Sales) AS Ventas_Totales
+	FROM Orders
+	GROUP BY YEAR(Order_Date), Product_Name
+), Ranked_Productos AS (
+	SELECT Año, Product_Name, Ventas_Totales, ROW_NUMBER() OVER(
+		PARTITION BY Año
+		ORDER BY Ventas_Totales DESC) AS Ranking 
+ 	FROM Ventas_Anuales
+)
+SELECT Año, Product_Name, Ventas_Totales
+FROM Ranked_Productos
+WHERE Ranking =1
+ORDER BY Año;
 ````
 <img width="445" height="95" alt="ask9" src="https://github.com/user-attachments/assets/ac51b18e-22d9-4867-84a8-2066ce878bc6" />
 
@@ -178,23 +174,20 @@ ORDER BY Porcentaje_Descuento;
 
 Identificar productos con tendencias de crecimiento consistentes a largo plazo.
 ````sql
-WITH ProductSalesByYear AS (
-	SELECT YEAR(Order_Date) AS Año, Product_Name, SUM(Sales) AS Total_Ventas
+WITH Ventas_Anuales AS (
+	SELECT Product_Name, SUM(Sales) AS Total_Ventas, YEAR(Order_Date) AS Año
 	FROM Orders
-	GROUP BY YEAR(Order_Date), Product_Name
+	GROUP BY Product_Name,YEAR(Order_Date)
 ),
-SalesHistory AS (
-	SELECT Product_Name, Año, Total_Ventas,
-			LAG(Total_Ventas, 1) OVER( PARTITION BY Product_Name
-			ORDER BY Año) AS Previous_Year_Sales,
-			LAG(Total_Ventas, 2) OVER (PARTITION BY Product_Name
-			ORDER BY Año) AS Two_Years_Ago_Sales
-	FROM ProductSalesByYear
+Historial_Ventas AS (
+					SELECT Product_Name, Año, Total_Ventas,
+							LAG(Total_Ventas, 1) OVER(PARTITION BY Product_Name ORDER BY Año) AS Hace_Un_Año,
+							LAG(Total_Ventas, 2) OVER(PARTITION BY Product_Name ORDER BY Año) AS Hace_Dos_Años
+					FROM Ventas_Anuales
 )
-SELECT Product_Name, Año, Two_Years_Ago_Sales, Previous_Year_Sales, Total_Ventas
-FROM SalesHistory
-WHERE Total_Ventas > Previous_Year_Sales AND Previous_Year_Sales > Two_Years_Ago_Sales
-ORDER BY Product_Name, Año;
+SELECT Product_Name, Año, Total_Ventas, Hace_Un_Año, Hace_Dos_Años
+FROM Historial_Ventas
+WHERE Total_Ventas>Hace_Un_Año AND Hace_Un_Año>Hace_Dos_Años;
 ````
 <img width="621" height="377" alt="ask10" src="https://github.com/user-attachments/assets/4059d6e3-b5ce-4dba-b301-1c126f9b2eed" />
 
