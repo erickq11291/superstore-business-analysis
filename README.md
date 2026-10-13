@@ -34,10 +34,13 @@ Aplicar técnicas de análisis de datos con SQL para obtener información útil 
 Identificar los productos que generan el mayor volumen de ventas y contribuyen significativamente a los ingresos de la empresa.
 
 ````sql
-SELECT 
-  COUNT(DISTINCT id) AS unique_users
-FROM health.user_logs
+SELECT TOP 10 Product_Name, SUM(Sales) AS Ventas_Totales
+FROM Orders
+GROUP BY Product_Name
+ORDER BY Ventas_Totales DESC;
+
 ````
+<img width="403" height="211" alt="ask1" src="https://github.com/user-attachments/assets/ced82e0b-3867-4e06-9771-32a789a60eb7" />
 
 ### 2. ¿Qué clientes generan más ingresos para la empresa?
 
