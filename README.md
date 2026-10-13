@@ -30,7 +30,8 @@ Aplicar técnicas de análisis de datos con SQL para obtener información útil 
 
 ## 📈 Preguntas de Negocio Analizadas
 
-### 1. ¿Qué regiones generan más ventas?
+### 1. ¿Cuáles son los 10 productos más vendidos?
+Identificar los productos que generan el mayor volumen de ventas y contribuyen significativamente a los ingresos de la empresa.
 
 ````sql
 SELECT 
@@ -38,43 +39,41 @@ SELECT
 FROM health.user_logs
 ````
 
-Analiza la distribución de ventas por región e identifica cuáles aportan una mayor participación en los ingresos totales.
+### 2. ¿Qué clientes generan más ingresos para la empresa?
 
-### 2. ¿Qué categorías generan mayor beneficio?
+Determinar qué clientes tienen el mayor impacto en las ventas totales.
 
-Compara la rentabilidad entre categorías de productos para detectar las más valiosas para la empresa.
+### 3. ¿Qué porcentaje de las ventas totales aporta cada región?
 
-### 3. ¿Qué clientes generan más ingresos?
+Analizar la distribución geográfica de los ingresos e identificar las regiones más importantes para el negocio.
 
-Identifica los clientes con mayores compras acumuladas.
+### 4. ¿Cómo han evolucionado las ventas a lo largo de los años?
 
-### 4. ¿Qué productos tienen el mayor margen de beneficio?
+Evaluar el crecimiento o disminución de las ventas mediante una comparación año contra año.
 
-Calcula el margen porcentual para encontrar los productos más rentables.
+### 5. ¿Qué categorías de productos generan más beneficio?
 
-### 5. ¿Cuál fue el producto más vendido de cada año?
+Identificar qué categorías aportan la mayor rentabilidad al negocio.
 
-Utiliza funciones de ventana para identificar el producto líder por año.
+### 6. ¿Qué productos tienen el mayor margen de beneficio?
 
-### 6. ¿Cómo evolucionaron las ventas año tras año?
+Determinar qué productos son más eficientes generando ganancias en relación con sus ventas.
 
-Analiza el crecimiento anual mediante comparaciones Year-over-Year.
+### 7. ¿Cómo afectan los descuentos a la rentabilidad?
 
-### 7. ¿Qué clientes realizaron más pedidos?
+Analizar el impacto de los diferentes niveles de descuento sobre los beneficios obtenidos.
 
-Identifica los clientes con mayor frecuencia de compra.
+### 8. ¿Qué clientes realizan más pedidos?
 
-### 8. ¿Cómo afectan los descuentos a la rentabilidad?
+Identificar los clientes más frecuentes y comprender mejor el comportamiento de compra.
 
-Evalúa la relación entre los niveles de descuento y las ganancias obtenidas.
+### 9. ¿Cuál fue el producto más vendido de cada año?
 
-### 9. ¿Qué ciudades generan más ventas?
+Detectar qué productos lideraron las ventas en cada periodo anual.
 
-Determina las ciudades con mejor desempeño comercial.
+### 10. ¿Qué productos mantuvieron un crecimiento sostenido durante tres años consecutivos?
 
-### 10. ¿Qué productos muestran crecimiento durante tres años consecutivos?
-
-Detecta productos con tendencias sostenidas de crecimiento utilizando funciones analíticas avanzadas.
+Identificar productos con tendencias de crecimiento consistentes a largo plazo.
 
 ---
 
