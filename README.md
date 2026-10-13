@@ -40,7 +40,8 @@ GROUP BY Product_Name
 ORDER BY Ventas_Totales DESC;
 
 ````
-<img  alt="ask1" src="https://github.com/user-attachments/assets/ced82e0b-3867-4e06-9771-32a789a60eb7" />
+<img width="404" height="208" alt="ask1" src="https://github.com/user-attachments/assets/05b9aa05-a1bb-44c2-ae01-453692e8b206" />
+
 
 ### 2. ¿Qué clientes generan más ingresos para la empresa?
 
@@ -51,7 +52,7 @@ FROM Orders
 GROUP BY Customer_Name
 ORDER BY Monto_Total_Gastado DESC;
 ````
-<img width="248" height="114" alt="ask2" src="https://github.com/user-attachments/assets/580ca470-cfcd-4a4e-9202-3bea0bfa1e2d" />
+<img width="222" height="115" alt="ask2" src="https://github.com/user-attachments/assets/c99bb3e0-c6cd-48cf-80ca-f29866bd8020" />
 
 
 ### 3. ¿Qué porcentaje de las ventas totales aporta cada región?
@@ -64,7 +65,8 @@ GROUP BY Category
 HAVING SUM(Profit)>0
 ORDER BY Ganancia_Total;
 ````
-<img width="212" height="80" alt="ask3" src="https://github.com/user-attachments/assets/093a6e54-86a0-4a9e-9abe-0c1561025b5f" />
+<img width="270" height="95" alt="ask3" src="https://github.com/user-attachments/assets/c4194245-86bd-49d4-8ae2-723df2a483fc" />
+
 
 
 ### 4. ¿Cómo han evolucionado las ventas a lo largo de los años?
@@ -76,7 +78,7 @@ FROM Orders
 GROUP BY Region
 ORDER BY Porcentaje_Ventas;
 ````
-<img width="281" height="94" alt="ask4" src="https://github.com/user-attachments/assets/fb1057e9-93f8-44d5-8247-312a810e3f76" />
+<img width="471" height="96" alt="ask4" src="https://github.com/user-attachments/assets/4d2a409d-755e-4feb-9154-c1d7c8d1f2a5" />
 
 
 ### 5. ¿Qué categorías de productos generan más beneficio?
@@ -100,7 +102,7 @@ FROM RankedProducts
 WHERE Ranking = 1
 ORDER BY Año;
 ````
-<img width="439" height="94" alt="ask5" src="https://github.com/user-attachments/assets/271d9b22-76f2-43d0-ba8c-0203570529ec" />
+<img width="211" height="76" alt="ask5" src="https://github.com/user-attachments/assets/6c6603a9-9358-4b1a-825d-b4be1c98d9a6" />
 
 
 ### 6. ¿Qué productos tienen el mayor margen de beneficio?
@@ -120,7 +122,7 @@ SELECT Año, Ventas_Totales,
 FROM Ventas_Anuales
 ORDER BY Año;
 ````
-<img width="549" height="94" alt="ask6" src="https://github.com/user-attachments/assets/f2ab897b-f601-48a5-8029-e216354bf994" />
+<img width="569" height="209" alt="ask6" src="https://github.com/user-attachments/assets/5d896514-ea0e-4ff3-85cc-9f8969390ecd" />
 
 
 ### 7. ¿Cómo afectan los descuentos a la rentabilidad?
@@ -133,7 +135,7 @@ GROUP BY Product_Name
 HAVING SUM(Sales)>0
 ORDER BY Ganancia_Total DESC;
 ````
-<img width="565" height="212" alt="ask7" src="https://github.com/user-attachments/assets/4807d715-5a1e-40a2-a5c7-632d06d0b276" />
+<img width="433" height="115" alt="ask7" src="https://github.com/user-attachments/assets/fbb45ab2-bb8f-4ce4-9d58-1bf3a16c9e3e" />
 
 
 ### 8. ¿Qué clientes realizan más pedidos?
@@ -145,7 +147,7 @@ FROM Orders
 GROUP BY Customer_Name
 ORDER BY Total_Pedidos DESC;
 ````
-<img width="221" height="208" alt="ask8" src="https://github.com/user-attachments/assets/feaf0fa5-a4fb-4c1a-9e05-da609667b0bb" />
+<img width="242" height="209" alt="ask8" src="https://github.com/user-attachments/assets/bf8a03f9-53a1-4995-b60f-1565ac646097" />
 
 
 ### 9. ¿Cuál fue el producto más vendido de cada año?
@@ -169,7 +171,7 @@ GROUP BY CASE
 		END
 ORDER BY Porcentaje_Descuento;
 ````
-<img width="445" height="115" alt="ask9" src="https://github.com/user-attachments/assets/e24d2566-b1d4-4956-8ae2-7d021051dd33" />
+<img width="445" height="95" alt="ask9" src="https://github.com/user-attachments/assets/ac51b18e-22d9-4867-84a8-2066ce878bc6" />
 
 
 ### 10. ¿Qué productos mantuvieron un crecimiento sostenido durante tres años consecutivos?
@@ -194,7 +196,7 @@ FROM SalesHistory
 WHERE Total_Ventas > Previous_Year_Sales AND Previous_Year_Sales > Two_Years_Ago_Sales
 ORDER BY Product_Name, Año;
 ````
-<img width="682" height="494" alt="ask10" src="https://github.com/user-attachments/assets/9602f1c0-9427-4207-b6f2-090029b832a4" />
+<img width="621" height="377" alt="ask10" src="https://github.com/user-attachments/assets/4059d6e3-b5ce-4dba-b301-1c126f9b2eed" />
 
 
 ---
