@@ -40,7 +40,7 @@ GROUP BY Product_Name
 ORDER BY Ventas_Totales DESC;
 
 ````
-<img width="403" height="211" alt="ask1" src="https://github.com/user-attachments/assets/ced82e0b-3867-4e06-9771-32a789a60eb7" />
+<img  alt="ask1" src="https://github.com/user-attachments/assets/ced82e0b-3867-4e06-9771-32a789a60eb7" />
 
 ### 2. ¿Qué clientes generan más ingresos para la empresa?
 
