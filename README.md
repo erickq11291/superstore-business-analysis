@@ -32,7 +32,11 @@ Aplicar técnicas de análisis de datos con SQL para obtener información útil 
 
 ### 1. ¿Qué regiones generan más ventas?
 
-SELECT * FROM ORDERS;
+````sql
+SELECT 
+  COUNT(DISTINCT id) AS unique_users
+FROM health.user_logs
+````
 
 Analiza la distribución de ventas por región e identifica cuáles aportan una mayor participación en los ingresos totales.
 
