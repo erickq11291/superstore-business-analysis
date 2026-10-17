@@ -198,5 +198,5 @@ WHERE Total_Ventas>Hace_Un_Año AND Hace_Un_Año>Hace_Dos_Años;
 
 **Erick Quispe**
 
-- LinkedIn: [www.linkedin.com/in/erick-joseph-quispe-baca/](https://www.linkedin.com/in/erickjquispe/?isSelfProfile=true)
+- LinkedIn: [Erick Joseph Quispe Baca](https://www.linkedin.com/in/erickjquispe/?isSelfProfile=true)
 - GitHub: https://github.com/erickq11291
