@@ -194,19 +194,6 @@ WHERE Total_Ventas>Hace_Un_Año AND Hace_Un_Año>Hace_Dos_Años;
 
 ---
 
-## 📂 Estructura del Proyecto
-
-```text
-superstore-business-analysis
-│
-├── README.md
-├── queries.sql
-├── dataset
-└── screenshots
-```
-
----
-
 ## 👨‍💻 Autor
 
 **Erick Quispe**
